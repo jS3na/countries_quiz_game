@@ -160,7 +160,18 @@ class MainController extends Controller
     }
 
     public function showResults() {
-        echo 'game over';
-        dd(session()->all());
+        $total_questions = session('total_questions');
+        $correct_answers = session('correct_answers');
+        $wrong_answers = session('wrong_answers');
+        $score = intval(($correct_answers/$total_questions) * 100);
+
+        $data = [
+            'total_questions' => $total_questions,
+            'correct_answers' => $correct_answers,
+            'wrong_answers' => $wrong_answers,
+            'score' => $score
+        ];
+
+        return view('show_results', $data);
     }
 }
